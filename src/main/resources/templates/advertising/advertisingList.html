@@ -4,6 +4,7 @@
     <title>Advertising platform</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/listStyle.css}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -46,44 +47,74 @@
 
 
 <div class="jumbotron">
-    <div class="container">
 
-        <div class="starter-template">
-            <H3 align="center">Advertisings</H3>
-            <table align="center">
-                <thead>
-                <tr>
-                    <th> Id </th>
-                    <th> Brand </th>
-                    <th> Title  </th>
-                    <th> Description </th>
-                    <th> Type </th>
-                    <th> Price </th>
-                    <th> Period </th>
-                    <th> Created date </th>
-                    <th> Modified date </th>
-                    <th> Details </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="ann : ${announcements}">
-                    <td><span th:text="${ann.getId()}"> Id </span></td>
-                    <td><span th:text="${ann.getBrand()}"> Brand </span></td>
-                    <td><span th:text="${ann.getTitle()}"> Title </span></td>
-                    <td><span th:text="${ann.getDescription()}"> Description </span></td>
-                    <td><span th:text="${ann.getType()}"> Type </span></td>
-                    <td><span th:text="${ann.getPrice()}"> Price </span></td>
-                    <td><span th:text="${ann.getPeriod()}"> Period </span></td>
-                    <td><span th:text="${ann.getCreatedDate()}"> Created date </span></td>
-                    <td><span th:text="${ann.getModifiedDate()}"> Modified date </span></td>
-                    <td><a th:href="@{'/announcement/get/' + ${ann.id}}">Details</a></td>
-                </tr>
-                </tbody>
-            </table>
-            <H4><a th:href="@{/announcement/add?type=ADVERTISING}">Add new advertising</a></H4>
+    <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-center row" th:each="ann : ${announcements}">
+            <div class="col-md-10">
+                <div class="row p-2 bg-white border rounded">
+                    <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="https://i.imgur.com/QpjAiHq.jpg"></div>
+                    <div class="col-md-6 mt-1">
+                        <h5 th:text="${ann.getTitle()}"></h5>
+                        <div class="d-flex flex-row">
+                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>310</span>
+                        </div>
+                        <div class="mt-1 mb-1 spec-1"><span th:text="${ann.getPeriod()}"></span><span class="dot"></span><span th:text="${ann.getBrand()}"></span><span class="dot"></span></div>
+                        <p class="text-justify text-truncate para mb-0" th:text="${ann.getDescription()}"><br><br></p>
+                    </div>
+                    <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                        <div class="d-flex flex-row align-items-center">
+                            <p class="mr-1" th:text="${ann.getPrice()}"></p><p>&#36;</p><!--<span class="strike-text">$20.99</span>-->
+                        </div>
+                        <h6 class="text-success" th:text="${ann.getCountry()}"></h6>
+                        <div class="d-flex flex-column mt-4">
+                            <a th:href="@{'/announcement/get/' + ${ann.id}}">Details</a>
+<!--                            <button class="btn btn-primary btn-sm" type="button" th:action="@{'/announcement/get/' + ${ann.id}}">Details</button>-->
+                            <button class="btn btn-outline-primary btn-sm mt-2" type="button">Add to wishlist</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </div>
+
+<!--    <div class="container">-->
+
+<!--        <div class="starter-template">-->
+<!--            <H3 align="center">Advertisings</H3>-->
+<!--            <table align="center">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th> Id </th>-->
+<!--                    <th> Brand </th>-->
+<!--                    <th> Title  </th>-->
+<!--                    <th> Description </th>-->
+<!--                    <th> Type </th>-->
+<!--                    <th> Price </th>-->
+<!--                    <th> Period </th>-->
+<!--                    <th> Created date </th>-->
+<!--                    <th> Modified date </th>-->
+<!--                    <th> Details </th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr th:each="ann : ${announcements}">-->
+<!--                    <td><span th:text="${ann.getId()}"> Id </span></td>-->
+<!--                    <td><span th:text="${ann.getBrand()}"> Brand </span></td>-->
+<!--                    <td><span th:text="${ann.getTitle()}"> Title </span></td>-->
+<!--                    <td><span th:text="${ann.getDescription()}"> Description </span></td>-->
+<!--                    <td><span th:text="${ann.getType()}"> Type </span></td>-->
+<!--                    <td><span th:text="${ann.getPrice()}"> Price </span></td>-->
+<!--                    <td><span th:text="${ann.getPeriod()}"> Period </span></td>-->
+<!--                    <td><span th:text="${ann.getCreatedDate()}"> Created date </span></td>-->
+<!--                    <td><span th:text="${ann.getModifiedDate()}"> Modified date </span></td>-->
+<!--                    <td><a th:href="@{'/announcement/get/' + ${ann.id}}">Details</a></td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--            <H4><a th:href="@{/announcement/add?type=ADVERTISING}">Add new advertising</a></H4>-->
+<!--        </div>-->
+
+<!--    </div>-->
 </div>
 
 
