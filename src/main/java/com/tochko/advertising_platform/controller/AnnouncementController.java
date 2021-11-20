@@ -57,25 +57,26 @@ public class AnnouncementController {
             if(type==AnnouncementType.ADVERTISING) {
                 return "/advertising/advertisingList";
             }
-            else if(type==AnnouncementType.PLATFORM) {
+            else {
                 return "/platform/platformList";
             }
-            else {
-                return "/announcement/announcementsList";
-            }
+
         } catch (Exception e) {
-            return "/announcement/announcementsList";
+            return "/index";
         }
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Announcement> get(
-            @PathVariable("id") Long id) {
+    public String get(Model model,
+                      @PathVariable("id") Long id) {
         try {
             Optional<Announcement> announcement = annService.get(id);
-            return new ResponseEntity<>(announcement.get(), HttpStatus.CREATED);
+            model.addAttribute("announcement", announcement.get());
+            return "/advertising/advertisingDetails";
+           // return new ResponseEntity<>(announcement.get(), HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return "/index";
+            //return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

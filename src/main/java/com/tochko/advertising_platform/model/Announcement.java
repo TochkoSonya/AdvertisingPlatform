@@ -26,6 +26,7 @@ public class Announcement implements Serializable {
     private String brand;
     private String title;
     private String description;
+    private String country;
     private AnnouncementType type;
     private Double price;
     private Double period;

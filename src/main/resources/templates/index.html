@@ -32,7 +32,8 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a th:href="@{index.html}">Home</a></li>
+<!--                th:href="@{~/billing-app/showDetails.htm}"-->
+                <li class="active"><a th:href="@{~/}">Home</a></li>
                 <li><a th:href="@{/announcement/list?type=ADVERTISING&size=10}">Advertising</a></li>
                 <li><a th:href="@{/announcement/list?type=PLATFORM&size=10}">Platforms</a></li>
                 <li><a href="about.html">About</a></li>
@@ -49,11 +50,9 @@
 
         <div class="starter-template">
             <h1>Добро пожаловать на платформу</h1>
-    <!--        <h2>1. Посетите <a th:href="@{/announcement/list}">List of announcements</a></h2>-->
             <h2>1. Посетите <a th:href="@{/announcement/list?type=ADVERTISING&size=10}">advertising list</a></h2>
             <h2>1. Посетите <a th:href="@{/announcement/list?type=PLATFORM&size=10}">platform list</a></h2>
             <h2>2. Посетите <a th:href="@{/user/list}">List of users</a></h2>
-<!--            <h2>3. Посетите <a th:href="@{/about}">Открытую страницу(доступна всем)</a></h2>-->
         </div>
 
     </div>
@@ -113,34 +112,3 @@
 
 </body>
 </html>
-
-
-<!--<!DOCTYPE HTML>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <title>Welcome</title>-->
-
-<!--    <div th:replace="fragments/header :: header-css"/>-->
-
-<!--</head>-->
-<!--<body>-->
-
-<!--<div th:replace="fragments/header :: header"/>-->
-
-<!--<div class="container">-->
-
-<!--    <div class="starter-template">-->
-<!--        <h1>Добро пожаловать на платформу</h1>-->
-<!--&lt;!&ndash;        <h2>1. Посетите <a th:href="@{/announcement/list}">List of announcements</a></h2>&ndash;&gt;-->
-<!--        <h2>1. Посетите <a th:href="@{/announcement/list?type=ADVERTISING&size=10}">advertising list</a></h2>-->
-<!--        <h2>1. Посетите <a th:href="@{/announcement/list?type=PLATFORM&size=10}">platform list</a></h2>-->
-<!--        <h2>2. Посетите <a th:href="@{/user/list}">List of users</a></h2>-->
-<!--        <h2>3. Посетите <a th:href="@{/about}">Открытую страницу(доступна всем)</a></h2>-->
-<!--    </div>-->
-
-<!--</div>-->
-
-<!--<div th:replace="fragments/footer :: footer"/>-->
-
-<!--</body>-->
-<!--</html>-->

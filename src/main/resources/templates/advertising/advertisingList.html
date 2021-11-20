@@ -32,7 +32,7 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a th:href="index">Home</a></li>
+                <li><a th:href="@{~/}">Home</a></li>
                 <li class="active"><a th:href="@{/announcement/list?type=ADVERTISING&size=10}">Advertising</a></li>
                 <li><a th:href="@{/announcement/list?type=PLATFORM&size=10}">Platforms</a></li>
                 <li><a th:href="@{/about}">About</a></li>
@@ -76,7 +76,7 @@
                     <td><span th:text="${ann.getPeriod()}"> Period </span></td>
                     <td><span th:text="${ann.getCreatedDate()}"> Created date </span></td>
                     <td><span th:text="${ann.getModifiedDate()}"> Modified date </span></td>
-                    <td><a th:href="@{/announcement/get/${ann.id}}">Show</a></td>
+                    <td><a th:href="@{'/announcement/get/' + ${ann.id}}">Details</a></td>
                 </tr>
                 </tbody>
             </table>
