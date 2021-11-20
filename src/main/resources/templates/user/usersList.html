@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>List users</title>
+
+    <title>Create an account</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+<H3 align="center">Users list</H3>
+<table align="center">
+    <thead>
+    <tr>
+        <th> Id </th>
+        <th> First name </th>
+        <th> Last name  </th>
+        <th> Email </th>
+        <th> Username </th>
+        <th> Password </th>
+        <th> Phone </th>
+        <th> IsActive </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="user : ${users}">
+        <td><span th:text="${user.getId()}"> Id </span></td>
+        <td><span th:text="${user.getFirstName()}"> Brand </span></td>
+        <td><span th:text="${user.getLastName()}"> Title </span></td>
+        <td><span th:text="${user.getEmail()}"> Description </span></td>
+        <td><span th:text="${user.getUsername()}"> Type </span></td>
+        <td><span th:text="${user.getPassword()}"> Price </span></td>
+        <td><span th:text="${user.getPhone()}"> Phone </span></td>
+        <td><span th:text="${user.isActive()}"> IsActive </span></td>
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

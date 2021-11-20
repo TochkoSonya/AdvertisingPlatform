@@ -36,8 +36,8 @@ public class CommentService implements CommonService<Comment>{
     public Comment update(long id, Comment comment) {
         Optional<Comment> optComment = get(id);
         if(optComment.isPresent()) {
-            Comment updatedComment = optComment.get();
-            updatedComment = Comment.builder()
+            Comment updatedComment = Comment.builder()
+                    .id(id)
                     .message(comment.getMessage())
                     .modifiedDate(new Date())
                     .build();

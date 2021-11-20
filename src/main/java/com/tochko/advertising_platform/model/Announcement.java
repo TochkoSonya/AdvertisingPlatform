@@ -2,18 +2,16 @@ package com.tochko.advertising_platform.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.Period;
 import java.util.Date;
 import java.util.List;
 
-@Data
+//@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -30,7 +28,7 @@ public class Announcement implements Serializable {
     private String description;
     private AnnouncementType type;
     private Double price;
-    private Period period;
+    private Double period;
     private Date createdDate;
     private Date modifiedDate;
 

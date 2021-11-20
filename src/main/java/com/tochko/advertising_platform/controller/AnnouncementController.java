@@ -3,20 +3,20 @@ package com.tochko.advertising_platform.controller;
 import com.tochko.advertising_platform.model.Announcement;
 import com.tochko.advertising_platform.model.AnnouncementType;
 import com.tochko.advertising_platform.service.AnnouncementService;
-import com.tochko.advertising_platform.service.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import sun.misc.Request;
 
-@RestController
+import java.util.*;
+
+@Controller
 @RequestMapping("/announcement")
 public class AnnouncementController {
 
@@ -27,11 +27,13 @@ public class AnnouncementController {
         this.annService=service;
     }
 
+    //get all announcements
     @GetMapping("/list")
-    public ResponseEntity<List<Announcement>> list(
+    public String list(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "3") int size,
-            @RequestParam(required = false) AnnouncementType type) {
+            @RequestParam(required = false) AnnouncementType type,
+            Model model) {
         try {
             List<Announcement> announcements;
             Pageable paging = PageRequest.of(page, size);
@@ -50,10 +52,19 @@ public class AnnouncementController {
             response.put("currentPage", pageAnnouncements.getNumber());
             response.put("totalItems", pageAnnouncements.getTotalElements());
             response.put("totalPages", pageAnnouncements.getTotalPages());
-            return new ResponseEntity(response, HttpStatus.OK);
 
+            model.addAttribute("announcements", announcements);
+            if(type==AnnouncementType.ADVERTISING) {
+                return "/advertising/advertisingList";
+            }
+            else if(type==AnnouncementType.PLATFORM) {
+                return "/platform/platformList";
+            }
+            else {
+                return "/announcement/announcementsList";
+            }
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return "/announcement/announcementsList";
         }
     }
 
@@ -63,21 +74,41 @@ public class AnnouncementController {
         try {
             Optional<Announcement> announcement = annService.get(id);
             return new ResponseEntity<>(announcement.get(), HttpStatus.CREATED);
-
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    // add announcement
+    @GetMapping("/add")
+    public String addForm(Model model,
+                          @RequestParam AnnouncementType type) {
+        model.addAttribute("announcement", new Announcement());
+        if(type==AnnouncementType.PLATFORM) {
+            return "platform/platformAdd";
+        }
+        else {
+            return "advertising/advertisingAdd";
+        }
+    }
     @PostMapping("/add")
-    public ResponseEntity<Announcement> add(
-            @RequestBody Announcement announcement) {
+    public String add(
+            @ModelAttribute Announcement announcement,
+            @RequestParam AnnouncementType type,
+            Model model) {
         try {
+            announcement.setCreatedDate(new Date());
+            announcement.setModifiedDate(new Date());
+            announcement.setType(type);
             annService.add(announcement);
-            return new ResponseEntity<>(announcement, HttpStatus.CREATED);
-
+            if(type==AnnouncementType.PLATFORM) {
+                return "redirect:/announcement/list?type=PLATFORM&size=10";
+            }
+            else {
+                return "redirect:/announcement/list?type=ADVERTISING&size=10";
+            }
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return "index";
         }
     }
 
@@ -86,7 +117,7 @@ public class AnnouncementController {
             @PathVariable("id") Long id,
             @RequestBody Announcement ann) {
         try {
-                annService.update(id,ann);
+            annService.update(id,ann);
             return new ResponseEntity<>(ann, HttpStatus.OK);
 
         } catch (Exception e) {
