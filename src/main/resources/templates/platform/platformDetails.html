@@ -1,10 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Advertising platform</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!------ Include the above in your HEAD tag ---------->
+
+    <style>
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+        footer {
+            background-color: #f2f2f2;
+            padding: 25px;
+        }
+    </style>
 </head>
+
 <body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container">
+    <br>  <p class="text-center">More bootstrap 4 components on <a href="http://bootstrap-ecommerce.com/"> Bootstrap-ecommerce.com</a></p>
+    <hr>
+
+    <div class="card">
+        <div class="row" th:object="${announcement}">
+            <aside class="col-sm-5 border-right">
+                <article class="gallery-wrap">
+                    <div class="img-big-wrap">
+                        <div> <a href="#"><img src="https://s9.postimg.org/tupxkvfj3/image.jpg"></a></div>
+                    </div> <!-- slider-product.// -->
+                    <div class="img-small-wrap">
+                        <div class="item-gallery"> <img src="https://s9.postimg.org/tupxkvfj3/image.jpg"> </div>
+                        <div class="item-gallery"> <img src="https://s9.postimg.org/tupxkvfj3/image.jpg"> </div>
+                        <div class="item-gallery"> <img src="https://s9.postimg.org/tupxkvfj3/image.jpg"> </div>
+                        <div class="item-gallery"> <img src="https://s9.postimg.org/tupxkvfj3/image.jpg"> </div>
+                    </div> <!-- slider-nav.// -->
+                </article> <!-- gallery-wrap .end// -->
+            </aside>
+            <aside class="col-sm-7">
+                <article class="card-body p-5">
+                    <h3 class="title mb-3" th:text="${announcement.getTitle()}"></h3>
+
+                    <p class="price-detail-wrap">
+	        <span class="price h3 text-warning">
+		            <span class="currency">US $</span><span class="num" th:text="${announcement.getPrice()}"></span>
+            	</span>
+                    <dl class="param param-feature">
+                        <dt>Brand</dt>
+                        <dd th:text="${announcement.getBrand()}"></dd>
+                    </dl>
+                    </p>
+                    <dl class="item-property">
+                        <dt>Description</dt>
+                        <dd><p th:text="${announcement.getDescription()}"></p></dd>
+                    </dl>
+                    <dl class="param param-feature">
+                        <dt>Period (days)</dt>
+                        <dd th:text="${announcement.getPeriod()}"></dd>
+                    </dl>
+                    <dl class="param param-feature">
+                        <dt>Created date</dt>
+                        <dd th:text="${announcement.getCreatedDate()}"></dd>
+                    </dl>
+                    <dl class="param param-feature">
+                        <dt>Last modify</dt>
+                        <dd th:text="${announcement.getModifiedDate()}"></dd>
+                    </dl>
+
+                    <hr>
+                    <!--                    <div class="row">-->
+                    <!--                        <div class="col-sm-5">-->
+                    <!--                            <dl class="param param-inline">-->
+                    <!--                                <dt>Quantity: </dt>-->
+                    <!--                                <dd>-->
+                    <!--                                    <select class="form-control form-control-sm" style="width:70px;">-->
+                    <!--                                        <option> 1 </option>-->
+                    <!--                                        <option> 2 </option>-->
+                    <!--                                        <option> 3 </option>-->
+                    <!--                                    </select>-->
+                    <!--                                </dd>-->
+                    <!--                            </dl>  &lt;!&ndash; item-property .// &ndash;&gt;-->
+                    <!--                        </div> &lt;!&ndash; col.// &ndash;&gt;-->
+                    <!--                        <div class="col-sm-7">-->
+                    <!--                            <dl class="param param-inline">-->
+                    <!--                                <dt>Size: </dt>-->
+                    <!--                                <dd>-->
+                    <!--                                    <label class="form-check form-check-inline">-->
+                    <!--                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">-->
+                    <!--                                        <span class="form-check-label">SM</span>-->
+                    <!--                                    </label>-->
+                    <!--                                    <label class="form-check form-check-inline">-->
+                    <!--                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">-->
+                    <!--                                        <span class="form-check-label">MD</span>-->
+                    <!--                                    </label>-->
+                    <!--                                    <label class="form-check form-check-inline">-->
+                    <!--                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">-->
+                    <!--                                        <span class="form-check-label">XXL</span>-->
+                    <!--                                    </label>-->
+                    <!--                                </dd>-->
+                    <!--                            </dl>  &lt;!&ndash; item-property .// &ndash;&gt;-->
+                    <!--                        </div> &lt;!&ndash; col.// &ndash;&gt;-->
+                    <!--                    </div> &lt;!&ndash; row.// &ndash;&gt;-->
+                    <hr>
+                    <a href="#" class="btn btn-lg btn-primary text-uppercase"> Call </a>
+                    <a href="#" class="btn btn-lg btn-outline-primary text-uppercase"> <i class="fas fa-shopping-cart"></i> Add to cart </a>
+                </article> <!-- card-body.// -->
+            </aside> <!-- col.// -->
+        </div> <!-- row.// -->
+    </div> <!-- card.// -->
+</div>
+<!--container.//-->
+
+
+<div th:replace="fragments/footer :: footer"></div>
+
 
 </body>
 </html>

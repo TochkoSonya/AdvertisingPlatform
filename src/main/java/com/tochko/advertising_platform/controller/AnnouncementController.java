@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import sun.misc.Request;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/announcement")
@@ -27,7 +29,7 @@ public class AnnouncementController {
         this.annService=service;
     }
 
-    //get all announcements
+
     @GetMapping("/list")
     public String list(
             @RequestParam(defaultValue = "0") int page,
@@ -35,32 +37,26 @@ public class AnnouncementController {
             @RequestParam(required = false) AnnouncementType type,
             Model model) {
         try {
-            List<Announcement> announcements;
             Pageable paging = PageRequest.of(page, size);
             Page<Announcement> pageAnnouncements;
-
-            if (type == null) {
-                pageAnnouncements = annService.getAll(paging);
-            }
-            else {
+//            if (type == null) {
+//                pageAnnouncements = annService.getAll(paging);
+//            }
                 pageAnnouncements = annService.getByType(type, paging);
+            int totalPages = pageAnnouncements.getTotalPages();
+            if (totalPages > 0) {
+                List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                        .boxed()
+                        .collect(Collectors.toList());
+                model.addAttribute("pageNumbers", pageNumbers);
             }
-            announcements = pageAnnouncements.getContent();
-
-            Map<String, Object> response = new HashMap<>();
-            response.put("announcements", announcements);
-            response.put("currentPage", pageAnnouncements.getNumber());
-            response.put("totalItems", pageAnnouncements.getTotalElements());
-            response.put("totalPages", pageAnnouncements.getTotalPages());
-
-            model.addAttribute("announcements", announcements);
+            model.addAttribute("announcements", pageAnnouncements);
             if(type==AnnouncementType.ADVERTISING) {
                 return "/advertising/advertisingList";
             }
             else {
                 return "/platform/platformList";
             }
-
         } catch (Exception e) {
             return "/index";
         }
@@ -68,15 +64,19 @@ public class AnnouncementController {
 
     @GetMapping("/get/{id}")
     public String get(Model model,
-                      @PathVariable("id") Long id) {
+                      @PathVariable("id") Long id,
+                      @RequestParam AnnouncementType type) {
         try {
             Optional<Announcement> announcement = annService.get(id);
             model.addAttribute("announcement", announcement.get());
-            return "/advertising/advertisingDetails";
-           // return new ResponseEntity<>(announcement.get(), HttpStatus.CREATED);
+            if(type==AnnouncementType.PLATFORM) {
+                return "/platform/platformDetails";
+            }
+            else {
+                return "/advertising/advertisingDetails";
+            }
         } catch (Exception e) {
             return "/index";
-            //return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
